@@ -5,6 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import PropTypes from 'prop-types';
 import CourseForm from './CourseForm';
 import { Redirect } from 'react-router'
+import toastr from 'toastr';
 
 class ManagerCoursePage extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class ManagerCoursePage extends React.Component {
         this.state = {
             course: Object.assign({}, props.course),
             errors: {},
-            redirectToCoursesPage: false
+            redirectToCoursesPage: false,
+            saving: false
         };
 
         this.updateCourseFormState = this.updateCourseFormState.bind(this);
@@ -35,7 +37,18 @@ class ManagerCoursePage extends React.Component {
 
     saveCourse(event) {
         event.preventDefault();
-        this.props.actions.saveCourse(this.state.course);
+        this.setState({ saving: true });
+        this.props.actions.saveCourse(this.state.course)
+            .then(() => this.redirectAfterSaving())
+            .catch(err => {
+                this.setState({ saving: false });
+                toastr.error(err);
+            });
+    }
+
+    redirectAfterSaving() {
+        this.setState({ saving: false });
+        toastr.success("Course saved.")
         this.setState({ redirectToCoursesPage: true });
     }
 
@@ -52,7 +65,8 @@ class ManagerCoursePage extends React.Component {
                 errors={this.state.errors}
                 allAuthors={this.props.authors}
                 onChange={this.updateCourseFormState}
-                onSave={this.saveCourse} />
+                onSave={this.saveCourse}
+                saving={this.state.saving} />
         );
     }
 }

@@ -8,6 +8,7 @@ import NavMenu from '../src/components/shared/NavMenu';
 import CoursesPage from './components/course_management/CoursesPage';
 import ManageCoursePage from './components/course_management/ManageCoursePage';
 import AjaxSpinner from './components/shared/AjaxSpinner';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
       <Router>
         <div>
           <NavMenu />
-          <AjaxSpinner text={"Loading..."} />
+          {this.props.loading && <AjaxSpinner text={"Loading..."} />}
           <div className="container">
             <div className="row">
               <div className="col">
@@ -34,4 +35,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state, ownProps) {
+  return {
+    loading: state.ajaxCallsInProgress > 0
+  };
+}
+
+export default connect(mapStateToProps)(App);

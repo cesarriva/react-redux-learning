@@ -7,8 +7,9 @@ import confifureStore from './store/configureStore'
 import { Provider } from 'react-redux';
 import { loadCourses } from './actions/courseActions';
 import { loadAuthors } from './actions/authorActions';
-const store = confifureStore();
+import '../node_modules/toastr/build/toastr.min.css';
 
+const store = confifureStore();
 store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 
