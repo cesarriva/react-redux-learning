@@ -6,11 +6,11 @@ import HomePage from '../src/components/home/HomePage';
 import AboutPage from '../src/components/about/AboutPage';
 import NavMenu from '../src/components/shared/NavMenu';
 import CoursesPage from './components/course_management/CoursesPage';
-import ManageCoursePage from './components/course_management/ManageCoursePage';
+import ManagerCoursePage from './components/course_management/ManagerCoursePage';
 import AjaxSpinner from './components/shared/AjaxSpinner';
 import { connect } from 'react-redux';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <Router>
@@ -24,8 +24,8 @@ class App extends Component {
                 <Route exact path="/home" exact component={HomePage} />
                 <Route exact path="/about" component={AboutPage} />
                 <Route exact path="/courses" component={CoursesPage} />
-                <Route exact path="/course" component={ManageCoursePage} />
-                <Route path="/course/:id" component={ManageCoursePage} />
+                <Route exact path="/course" component={ManagerCoursePage} />
+                <Route path="/course/:id" component={ManagerCoursePage} />
               </div>
             </div>
           </div>

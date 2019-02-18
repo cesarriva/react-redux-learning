@@ -18,7 +18,7 @@ const TextInput = ({ name, label, onChange, placeholder, value, error }) => {
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange} />
-                {error && <div className="alert alert-danger">{error}</div>}
+                {error && <div className="alert alert-danger mt-1">{error}</div>}
             </div>
         </div>
     );
